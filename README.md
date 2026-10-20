@@ -1,7 +1,7 @@
 <div align="center">
 
 # 🚀 InfraReady — Automatisation, Supervision & Sécurité SI
-### Projet Fil Rouge - Administration Systèmes Linux & Windows (Bachelor 3 Cybersécurité)
+### Projet Fil Rouge - Administration Systèmes Linux & Windows (Bachelor 3 Architecture Réseau)
 
 <p align="center">
   <img src="https://img.shields.io/badge/Ansible-EE0000?style=for-the-badge&logo=ansible&logoColor=white" alt="Ansible">
