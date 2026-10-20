@@ -1,0 +1,31 @@
+---
+- name: Configuration Active Directory sur WIN-DC01
+  hosts: windows
+  gather_facts: false
+
+  tasks:
+    - name: Création de l'Unité d'Organisation InfraReady
+      microsoft.ad.ou:
+        name: "InfraReady"
+        state: present
+
+    - name: Création des groupes de sécurité
+      microsoft.ad.group:
+        name: "{{ item }}"
+        path: "OU=InfraReady,DC=infraready,DC=local"
+        scope: global
+        category: security
+        state: present
+      loop:
+        - "GR_SysAdmins"
+        - "GR_Technicians"
+
+    - name: Création de l'utilisateur de test jdupont
+      microsoft.ad.user:
+        name: "Jean Dupont"
+        sam_account_name: "jdupont"
+        upn: "jdupont@infraready.local"
+        path: "OU=InfraReady,DC=infraready,DC=local"
+        groups:
+          add: "GR_SysAdmins"
+        state: present

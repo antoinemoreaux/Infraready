@@ -1,0 +1,8 @@
+---
+- name: Vérification rapide de l'infrastructure
+  hosts: all
+  gather_facts: false
+
+  tasks:
+    - name: Ping des hôtes
+      ansible.builtin.ping:

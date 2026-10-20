@@ -1,0 +1,26 @@
+---
+- name: Maintenance et mises à jour du parc Linux
+  hosts: linux
+  become: true
+
+  tasks:
+    - name: Mettre à jour le cache apt et appliquer les mises à jour
+      ansible.builtin.apt:
+        update_cache: true
+        upgrade: dist
+        autoremove: true
+        autoclean: true
+
+    - name: Vérifier l'espace disque disponible
+      ansible.builtin.command: df -h /
+      register: disk_space
+      changed_when: false
+
+    - name: Afficher l'espace disque
+      ansible.builtin.debug:
+        msg: "{{ disk_space.stdout_lines }}"
+
+    - name: Vérifier l'état du service node_exporter
+      ansible.builtin.systemd:
+        name: node_exporter
+        state: started

@@ -1,0 +1,25 @@
+---
+- name: Configuration de base des serveurs Linux
+  hosts: linux
+  become: true
+  tasks:
+    - name: Mettre à jour le cache APT
+      ansible.builtin.apt:
+        update_cache: yes
+        cache_valid_time: 3600
+
+    - name: Installer les paquets de base
+      ansible.builtin.apt:
+        name:
+          - curl
+          - git
+          - htop
+          - ufw
+        state: present
+
+    - name: S'assurer que le service node_exporter est actif et démarré
+      ansible.builtin.systemd:
+        name: node_exporter
+        state: started
+        enabled: yes
+      ignore_errors: true
